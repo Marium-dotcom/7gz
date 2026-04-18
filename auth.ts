@@ -18,5 +18,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return true
     },
+    async session({ session }) {
+      if (session.user?.email) {
+        await connectToDB()
+        const dbUser = await User.findOne({ email: session.user.email }).lean()
+        if (dbUser) {
+          session.user.role = dbUser.role
+        }
+      }
+      return session
+    },
   },
 })
