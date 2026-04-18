@@ -3,6 +3,9 @@
   .input {
     @apply w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500;
   }
+  .field-input {
+    @apply w-full rounded-xl border border-gray-200 bg-gray-50 px-3 py-2 text-sm text-gray-900 placeholder:text-gray-300 transition-colors focus:border-teal-400 focus:bg-white focus:outline-none focus:ring-1 focus:ring-teal-300;
+  }
 }
 
 :root {
