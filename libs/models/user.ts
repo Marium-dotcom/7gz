@@ -1,12 +1,12 @@
 import { Schema, model, models } from 'mongoose';
-
-export const USER_ROLES = ['admin', 'user'] as const;
-export type UserRole = (typeof USER_ROLES)[number];
+import { USER_ROLES } from '@/libs/constants/user';
+export { USER_ROLES, type UserRole } from '@/libs/constants/user';
 
 export interface IUser {
   name: string;
   email: string;
   role: UserRole;
+  isBlocked: boolean;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -33,6 +33,7 @@ const UserSchema = new Schema<IUser>(
       default: 'user',
       required: true,
     },
+    isBlocked: { type: Boolean, default: false },
   },
   {
     timestamps: true,
