@@ -1,4 +1,5 @@
 import { Hero } from "@/components/hero";
+import { About } from "@/components/about";
 import { Services } from "@/components/services";
 import { BlogCards } from "@/components/blog-cards";
 import SignIn from "@/components/sign-in";
@@ -8,6 +9,7 @@ export default function Home() {
     <div className="bg-[#E5F3FB]">
       <SignIn />
       <Hero />
+      <About />
       <Services />
       <BlogCards />
     </div>

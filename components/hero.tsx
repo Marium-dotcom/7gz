@@ -22,7 +22,7 @@ export const Hero = async () => {
   return (
     <section className="w-full relative" style={bgStyle}>
 
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-10 pb-16 pt-28 lg:pt-36">
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-10 pb-16  pt-10">
 
         {/* Hero content */}
         {hasHeroImage ? (
@@ -42,7 +42,7 @@ export const Hero = async () => {
             </div>
           </div>
         ) : (
-          <div className="mx-auto max-w-4xl space-y-8 text-center">
+          <div className="mx-auto max-w-4xl  text-center">
             <TextBlock hero={hero} onDark={onDark} centered />
           </div>
         )}
