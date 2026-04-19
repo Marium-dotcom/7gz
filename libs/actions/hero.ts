@@ -32,32 +32,6 @@ export async function upsertHero(data: Partial<import('@/libs/models/hero').IHer
   return { success: true, message: 'Hero updated successfully' };
 }
 
-// export async function editHero(id: string, data: Partial<import('@/libs/models/hero').IHero>) {
-//   const session = await auth();
-
-//   if (!session?.user || session.user.role !== 'admin') {
-//     return { success: false, message: 'Unauthorized' };
-//   }
-
-//   if (!data.title?.trim()) {
-//     return { success: false, message: 'Title is required' };
-//   }
-
-//   await connectToDB();
-
-//   const updated = await Hero.findByIdAndUpdate(
-//     id,
-//     { ...data, updatedBy: session.user.email },
-//     { new: true, runValidators: true }
-//   );
-
-//   if (!updated) {
-//     return { success: false, message: 'Hero not found' };
-//   }
-
-//   return { success: true, message: 'Hero updated successfully' };
-// }
-
 export async function getHero() {
   await connectToDB();
 

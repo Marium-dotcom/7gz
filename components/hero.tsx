@@ -1,19 +1,141 @@
-// getHero()
-
 import { getHero } from '@/libs/actions/hero';
-import React from 'react'
+import Link from 'next/link';
+import Image from 'next/image';
+import DoctorSearchBar from './doctor-search-bar';
 
-export const    Hero = async () => {
-    // fetch hero data from server and display it here
-    
-    const hero = await getHero();
-    console.log('====================================');
-    console.log(hero);
-    console.log('====================================');
+export const Hero = async () => {
+  const hero = await getHero();
+  if (!hero) return null;
+
+  const bg = hero.background;
+  const hasHeroImage = !!hero.image?.url;
+
+  const bgStyle =
+    bg?.type === 'color' && bg.color
+      ? { backgroundColor: bg.color }
+      : bg?.type === 'image' && bg.imageUrl
+      ? { backgroundImage: `url(${bg.imageUrl})`, backgroundSize: 'cover', backgroundPosition: 'center' }
+      : {};
+
+  const onDark = bg?.type === 'image' || (bg?.type === 'color' && isDark(bg.color));
+
   return (
-    <div>
+    <section className="w-full relative" style={bgStyle}>
 
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-10 pb-16 pt-28 lg:pt-36">
 
-    </div>
-  )
+        {/* Hero content */}
+        {hasHeroImage ? (
+          <div className="flex items-center gap-12">
+            <div className="flex-1 space-y-8">
+              <TextBlock hero={hero} onDark={onDark} />
+            </div>
+            <div className="shrink-0">
+              <Image
+                src={hero.image!.url!}
+                alt={hero.image?.alt || ''}
+                width={700}
+                height={1400}
+                className="object-contain"
+                priority
+              />
+            </div>
+          </div>
+        ) : (
+          <div className="mx-auto max-w-4xl space-y-8 text-center">
+            <TextBlock hero={hero} onDark={onDark} centered />
+          </div>
+        )}
+<div className="absolute left-1/2 bottom-[-20px] w-full max-w-7xl -translate-x-1/2 -translate-y-1/2 px-10">
+  <DoctorSearchBar />
+</div>
+        {/* Search bar — same width as content */}
+
+      </div>
+
+    </section>
+  );
+};
+
+type Hero = NonNullable<Awaited<ReturnType<typeof getHero>>>;
+
+function TextBlock({
+  hero,
+  onDark,
+  centered = false,
+}: {
+  hero: Hero;
+  onDark: boolean;
+  centered?: boolean;
+}) {
+  return (
+    <>
+      {hero.subtitle && (
+        <div className={`flex items-center gap-3 ${centered ? 'justify-center' : ''}`}>
+          <span
+            className={`inline-flex items-center rounded-full border px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] ${
+              onDark
+                ? 'border-[#EAFBFF]/40 text-[#EAFBFF]'
+                : 'border-[#2F5795]/30 text-[#2F5795]'
+            }`}
+          >
+            {hero.subtitle}
+          </span>
+        </div>
+      )}
+
+      <h1
+        className={`text-4xl font-extrabold leading-[1.1] tracking-tight lg:text-6xl xl:text-7xl ${
+          onDark ? 'text-white' : 'text-gray-950'
+        }`}
+      >
+        {hero.title}
+      </h1>
+
+      {hero.description && (
+        <p
+          className={`max-w-2xl text-lg leading-relaxed ${centered ? 'mx-auto' : ''} ${
+            onDark ? 'text-gray-300' : 'text-gray-600'
+          }`}
+        >
+          {hero.description}
+        </p>
+      )}
+
+      {(hero.ctaText || hero.secondaryCtaText) && (
+        <div className={`flex flex-wrap gap-4 pt-2 ${centered ? 'justify-center' : ''}`}>
+          {hero.ctaText && hero.ctaLink && (
+            <Link
+              href={hero.ctaLink}
+              className="inline-block bg-[#162a48] px-8 py-3.5 text-sm font-bold uppercase tracking-widest text-white transition-colors hover:bg-[#1e3a6e]"
+            >
+              {hero.ctaText}
+            </Link>
+          )}
+          {hero.secondaryCtaText && hero.secondaryCtaLink && (
+            <Link
+              href={hero.secondaryCtaLink}
+              className={`inline-block border px-8 py-3.5 text-sm font-bold uppercase tracking-widest transition-colors ${
+                onDark
+                  ? 'border-white/40 text-white hover:border-white hover:bg-white/10'
+                  : 'border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white'
+              }`}
+            >
+              {hero.secondaryCtaText}
+            </Link>
+          )}
+        </div>
+      )}
+    </>
+  );
+}
+
+function isDark(hex?: string): boolean {
+  if (!hex) return false;
+  const c = hex.replace('#', '');
+  if (c.length < 6) return false;
+  const r = parseInt(c.slice(0, 2), 16);
+  const g = parseInt(c.slice(2, 4), 16);
+  const b = parseInt(c.slice(4, 6), 16);
+  return (r * 299 + g * 587 + b * 114) / 1000 < 128;
 }
