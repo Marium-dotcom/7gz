@@ -32,3 +32,41 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Blog post content */
+.blog-content { color: #374151; font-size: 1rem; line-height: 1.75; }
+.blog-content h2 { font-size: 1.5rem; font-weight: 800; color: #103D48; margin: 2rem 0 0.75rem; }
+.blog-content h3 { font-size: 1.2rem; font-weight: 700; color: #103D48; margin: 1.5rem 0 0.5rem; }
+.blog-content p  { margin-bottom: 1rem; }
+.blog-content ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 1rem; }
+.blog-content ol { list-style: decimal; padding-left: 1.5rem; margin-bottom: 1rem; }
+.blog-content li { margin-bottom: 0.35rem; }
+.blog-content blockquote { border-left: 4px solid #99f6e4; padding-left: 1.25rem; color: #6b7280; margin: 1.25rem 0; font-style: italic; }
+.blog-content code { background: #f3f4f6; border-radius: 4px; padding: 2px 6px; font-size: 0.875em; font-family: monospace; }
+.blog-content pre  { background: #1e293b; color: #e2e8f0; border-radius: 12px; padding: 1.25rem; overflow-x: auto; margin: 1.25rem 0; }
+.blog-content pre code { background: transparent; padding: 0; color: inherit; }
+.blog-content hr   { border: none; border-top: 1px solid #e5e7eb; margin: 2rem 0; }
+.blog-content a    { color: #0d9488; text-decoration: underline; }
+.blog-content a:hover { color: #0f766e; }
+.blog-content strong { font-weight: 700; color: #111827; }
+
+/* TipTap editor */
+.tiptap p.is-editor-empty:first-child::before {
+  color: #9ca3af;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+.tiptap:focus { outline: none; }
+.tiptap h2 { font-size: 1.25rem; font-weight: 700; margin: 1rem 0 0.5rem; }
+.tiptap h3 { font-size: 1.1rem; font-weight: 600; margin: 0.75rem 0 0.4rem; }
+.tiptap p  { margin-bottom: 0.6rem; line-height: 1.65; }
+.tiptap ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 0.6rem; }
+.tiptap ol { list-style: decimal; padding-left: 1.5rem; margin-bottom: 0.6rem; }
+.tiptap blockquote { border-left: 3px solid #99f6e4; padding-left: 1rem; color: #6b7280; margin: 0.75rem 0; }
+.tiptap code { background: #f3f4f6; border-radius: 4px; padding: 1px 5px; font-size: 0.85em; font-family: monospace; }
+.tiptap pre  { background: #1e293b; color: #e2e8f0; border-radius: 8px; padding: 1rem; overflow-x: auto; margin: 0.75rem 0; }
+.tiptap pre code { background: transparent; padding: 0; color: inherit; }
+.tiptap hr   { border: none; border-top: 1px solid #e5e7eb; margin: 1.25rem 0; }
+.tiptap a    { color: #0d9488; text-decoration: underline; }

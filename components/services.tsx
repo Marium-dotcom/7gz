@@ -49,12 +49,12 @@ type Service = NonNullable<Awaited<ReturnType<typeof getPublishedServices>>>['se
 
 function ServiceCard({ service, featured }: { service: Service; featured?: boolean }) {
   const card = featured ? (
-    <div className="group relative flex h-full flex-col items-center rounded-3xl bg-white px-8 py-10 text-center  shadow-[#103D48]/40 transition-transform hover:-translate-y-1">
+    <div className="group  flex h-full flex-col items-center rounded-3xl bg-white px-8 py-10 text-center  shadow-[#103D48]/40 transition-transform hover:-translate-y-1">
       {service.icon && (
         <div className="mb-6 flex h-24 w-24 items-center justify-center rounded-2xl bg-white/10 text-5xl">
           {service.icon.startsWith('http') || service.icon.startsWith('/') ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={service.icon} alt="" className="h-14 w-14 object-contain" />
+            <img src={service.icon} alt="" className=" object-contain" />
           ) : (
             <span>{service.icon}</span>
           )}
