@@ -3,6 +3,7 @@
 import { auth } from '@/auth';
 import { connectToDB } from '@/libs/mongoose';
 import User, { IUser, UserRole, USER_ROLES } from '@/libs/models/user';
+import Doctor from '@/libs/models/doctor';
 import { revalidatePath } from 'next/cache';
 
 type Result = { success: boolean; message: string };
@@ -48,7 +49,22 @@ export async function setUserRole(userId: string, role: UserRole): Promise<Resul
     const updated = await User.findByIdAndUpdate(userId, { role }, { new: true });
     if (!updated) return { success: false, message: 'User not found.' };
 
+    // When promoting to doctor, ensure a linked Doctor document exists
+    if (role === 'doctor') {
+      const exists = await Doctor.findOne({ user: userId });
+      if (!exists) {
+        await Doctor.create({
+          user:            userId,
+          displayName:     updated.name,
+          specialty:       'General Practice',
+          licenseNumber:   `PENDING-${userId}`,
+          consultationFee: 0,
+        });
+      }
+    }
+
     revalidatePath('/admin/users');
+    revalidatePath('/admin/doctors');
     return { success: true, message: `Role updated to "${role}".` };
   } catch (err) {
     console.error('[setUserRole]', err);

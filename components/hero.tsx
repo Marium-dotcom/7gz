@@ -1,5 +1,7 @@
 import { getHero } from '@/libs/actions/hero';
 import { auth } from '@/auth';
+import { connectToDB } from '@/libs/mongoose';
+import Doctor from '@/libs/models/doctor';
 import Link from 'next/link';
 import Image from 'next/image';
 import DoctorSearchBar from './doctor-search-bar';
@@ -13,6 +15,17 @@ export const Hero = async () => {
     role === 'admin' ? `Hello, Admin` :
     role === 'doctor' ? `Hello, Dr. ${session?.user?.name?.split(' ')[0] ?? ''}` :
     null;
+
+  let doctorSlug: string | null = null;
+  if (role === 'doctor' && session?.user?.email) {
+    await connectToDB();
+    const { default: User } = await import('@/libs/models/user');
+    const user = await User.findOne({ email: session.user.email }).lean();
+    if (user) {
+      const doc = await Doctor.findOne({ user: user._id }).lean();
+      if (doc) doctorSlug = doc.licenseNumber;
+    }
+  }
 
   const bg = hero.background;
   const hasHeroImage = !!hero.image?.url;
@@ -32,9 +45,25 @@ export const Hero = async () => {
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-10 pb-16  pt-10">
 
         {greeting && (
-          <div className={`inline-flex items-center self-start rounded-full border px-4 py-1.5 text-xs font-bold tracking-wide ${onDark ? 'border-white/30 text-white' : 'border-[#103D48]/30 text-[#103D48]'}`}>
-            {greeting}
-          </div>
+          role === 'admin' ? (
+            <Link
+              href="/admin/hero"
+              className={`inline-flex items-center self-start rounded-full border px-4 py-1.5 text-xs font-bold tracking-wide transition-opacity hover:opacity-70 ${onDark ? 'border-white/30 text-white' : 'border-[#103D48]/30 text-[#103D48]'}`}
+            >
+              {greeting}
+            </Link>
+          ) : doctorSlug ? (
+            <Link
+              href={`/book/${doctorSlug}`}
+              className={`inline-flex items-center self-start rounded-full border px-4 py-1.5 text-xs font-bold tracking-wide transition-opacity hover:opacity-70 ${onDark ? 'border-white/30 text-white' : 'border-[#103D48]/30 text-[#103D48]'}`}
+            >
+              {greeting}
+            </Link>
+          ) : (
+            <div className={`inline-flex items-center self-start rounded-full border px-4 py-1.5 text-xs font-bold tracking-wide ${onDark ? 'border-white/30 text-white' : 'border-[#103D48]/30 text-[#103D48]'}`}>
+              {greeting}
+            </div>
+          )
         )}
 
         {/* Hero content */}

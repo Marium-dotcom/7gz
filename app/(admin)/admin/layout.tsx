@@ -11,6 +11,7 @@ const sidebarLinks = [
   { href: '/admin/testimonials', label: 'Testimonials', icon: '💬' },
   { href: '/admin/footer', label: 'Footer', icon: '📌' },
   { href: '/admin/users', label: 'Users', icon: '👥' },
+  { href: '/admin/doctors', label: 'Doctors', icon: '🩺' },
 ];
 
 export default async function AdminLayout({
