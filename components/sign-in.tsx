@@ -1,15 +1,29 @@
+import { auth, signIn, signOut } from '@/auth';
 
-import { signIn } from "@/auth"
- 
-export default function SignIn() {
+export default async function SignIn() {
+  const session = await auth();
+
+  if (session?.user) {
+    return (
+      <form
+        action={async () => {
+          'use server';
+          await signOut();
+        }}
+      >
+        <button type="submit">Sign out</button>
+      </form>
+    );
+  }
+
   return (
     <form
       action={async () => {
-        "use server"
-        await signIn("google")
+        'use server';
+        await signIn('google');
       }}
     >
-      <button type="submit">Signin with Google</button>
+      <button type="submit">Sign in with Google</button>
     </form>
-  )
-} 
+  );
+}

@@ -1,11 +1,18 @@
 import { getHero } from '@/libs/actions/hero';
+import { auth } from '@/auth';
 import Link from 'next/link';
 import Image from 'next/image';
 import DoctorSearchBar from './doctor-search-bar';
 
 export const Hero = async () => {
-  const hero = await getHero();
+  const [hero, session] = await Promise.all([getHero(), auth()]);
   if (!hero) return null;
+
+  const role = session?.user?.role;
+  const greeting =
+    role === 'admin' ? `Hello, Admin` :
+    role === 'doctor' ? `Hello, Dr. ${session?.user?.name?.split(' ')[0] ?? ''}` :
+    null;
 
   const bg = hero.background;
   const hasHeroImage = !!hero.image?.url;
@@ -23,6 +30,12 @@ export const Hero = async () => {
     <section className="w-full relative" style={bgStyle}>
 
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-10 pb-16  pt-10">
+
+        {greeting && (
+          <div className={`inline-flex items-center self-start rounded-full border px-4 py-1.5 text-xs font-bold tracking-wide ${onDark ? 'border-white/30 text-white' : 'border-[#103D48]/30 text-[#103D48]'}`}>
+            {greeting}
+          </div>
+        )}
 
         {/* Hero content */}
         {hasHeroImage ? (
