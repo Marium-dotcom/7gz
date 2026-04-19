@@ -1,12 +1,11 @@
 import { Hero } from "@/components/hero";
-import SignIn from "@/components/sign-in";
-import Image from "next/image";
+import { Services } from "@/components/services";
 
 export default function Home() {
   return (
-    <div className="">
-    {/* fetch hero */}
-    <Hero/>
+    <div className="bg-[#E5F3FB]">
+      <Hero />
+      <Services />
     </div>
   );
 }

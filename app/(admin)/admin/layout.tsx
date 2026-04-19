@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 
 const sidebarLinks = [
   { href: '/admin/hero', label: 'Hero Section', icon: '🖼' },
+  { href: '/admin/services', label: 'Services', icon: '⚙️' },
   { href: '/admin/about', label: 'About Section', icon: '📝' },
   { href: '/admin/features', label: 'Features', icon: '✨' },
   { href: '/admin/testimonials', label: 'Testimonials', icon: '💬' },
