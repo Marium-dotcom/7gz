@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function SuspendedPage() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-white px-6 text-center">
@@ -16,16 +18,16 @@ export default function SuspendedPage() {
         If you believe this is a mistake, please reach out to our support team.
       </p>
 
-      <a
+      <Link
         href="mailto:support@example.com"
         className="mt-8 inline-block rounded-xl bg-[#103D48] px-8 py-3 text-sm font-bold text-white transition-opacity hover:opacity-80"
       >
         Contact Support
-      </a>
+      </Link>
 
-      <a href="/" className="mt-4 text-xs text-black/30 underline hover:text-black/60">
+      <Link href="/" className="mt-4 text-xs text-black/30 underline hover:text-black/60">
         Go back home
-      </a>
+      </Link>
 
     </div>
   );

@@ -67,7 +67,7 @@ export default function DoctorForm({
     startTransition(async () => {
       const res = await upsertDoctor(initialData?._id ?? null, form);
       notify(res.success, res.message);
-      if (res.success) onSaved({ ...form, _id: res.id });
+      if (res.success) onSaved({ ...(form as Doc), _id: res.id as Doc['_id'] });
     });
   }
 
