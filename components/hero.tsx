@@ -11,9 +11,11 @@ export const Hero = async () => {
   if (!hero) return null;
 
   const role = session?.user?.role;
+  const firstName = session?.user?.name?.split(' ')[0] ?? '';
   const greeting =
-    role === 'admin' ? `Hello, Admin` :
-    role === 'doctor' ? `Hello, Dr. ${session?.user?.name?.split(' ')[0] ?? ''}` :
+    role === 'admin'  ? `Hello, Admin` :
+    role === 'doctor' ? `Hello, Dr. ${firstName}` :
+    session?.user    ? `Hello, ${firstName}` :
     null;
 
   let doctorSlug: string | null = null;
@@ -52,18 +54,28 @@ export const Hero = async () => {
             >
               {greeting}
             </Link>
-          ) : doctorSlug ? (
+          ) : role === 'doctor' && doctorSlug ? (
             <Link
               href={`/book/${doctorSlug}`}
               className={`inline-flex items-center self-start rounded-full border px-4 py-1.5 text-xs font-bold tracking-wide transition-opacity hover:opacity-70 ${onDark ? 'border-white/30 text-white' : 'border-[#103D48]/30 text-[#103D48]'}`}
             >
               {greeting}
             </Link>
-          ) : (
-            <div className={`inline-flex items-center self-start rounded-full border px-4 py-1.5 text-xs font-bold tracking-wide ${onDark ? 'border-white/30 text-white' : 'border-[#103D48]/30 text-[#103D48]'}`}>
+          ) : role === 'doctor' ? (
+            <Link
+              href="/doctor/profile"
+              className={`inline-flex items-center self-start rounded-full border px-4 py-1.5 text-xs font-bold tracking-wide transition-opacity hover:opacity-70 ${onDark ? 'border-white/30 text-white' : 'border-[#103D48]/30 text-[#103D48]'}`}
+            >
               {greeting}
-            </div>
-          )
+            </Link>
+          ) : session?.user ? (
+            <Link
+              href="/profile"
+              className={`inline-flex items-center self-start rounded-full border px-4 py-1.5 text-xs font-bold tracking-wide transition-opacity hover:opacity-70 ${onDark ? 'border-white/30 text-white' : 'border-[#103D48]/30 text-[#103D48]'}`}
+            >
+              {greeting}
+            </Link>
+          ) : null
         )}
 
         {/* Hero content */}
