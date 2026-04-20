@@ -9,13 +9,21 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     async signIn({ user }) {
       await connectToDB()
-      const existing = await User.findOne({ email: user.email })
+      let existing = await User.findOne({ email: user.email })
       if (!existing) {
-        await User.create({
-          name: user.name,
-          email: user.email,
-        })
+        existing = await User.create({ name: user.name, email: user.email })
       }
+
+      // Blocked user
+      if (existing.isBlocked) return '/suspended'
+
+      // Inactive doctor
+      if (existing.role === 'doctor') {
+        const { default: Doctor } = await import('@/libs/models/doctor')
+        const doctor = await Doctor.findOne({ user: existing._id }).lean()
+        if (doctor && !doctor.isActive) return '/suspended'
+      }
+
       return true
     },
     async session({ session }) {

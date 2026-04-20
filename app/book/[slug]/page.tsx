@@ -3,6 +3,7 @@ import { auth } from '@/auth';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
+import BookingWidget from './BookingWidget';
 
 const DAYS = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'] as const;
 
@@ -144,19 +145,17 @@ export default async function DoctorProfilePage({ params }: { params: Promise<{ 
               )}
             </Section>
 
-            {/* Book CTA */}
-            <div className="rounded-3xl bg-[#103D48] p-6 text-center text-white">
-              <p className="mb-1 text-lg font-extrabold">Ready to book?</p>
-              <p className="mb-4 text-xs text-white/60">{doc.appointmentDuration}-minute appointments</p>
-              <button className="w-full rounded-2xl bg-white px-6 py-3 text-sm font-bold text-[#103D48] hover:bg-[#E5F3FB]">
-                Book Appointment
-              </button>
-              {doc.offersOnlineConsultation && (
-                <button className="mt-2 w-full rounded-2xl border border-white/20 px-6 py-3 text-sm font-bold text-white hover:bg-white/10">
-                  Online Consultation
-                </button>
-              )}
-            </div>
+            {/* Booking widget */}
+            <BookingWidget
+              doctorId={doc._id!.toString()}
+              availability={doc.availability ?? []}
+              appointmentDuration={doc.appointmentDuration ?? 30}
+              offersOnlineConsultation={doc.offersOnlineConsultation ?? false}
+              fee={doc.consultationFee ?? 0}
+              onlineFee={doc.onlineFee}
+              currency={doc.currency ?? 'EGP'}
+              isLoggedIn={!!session?.user}
+            />
 
           </div>
         </div>
