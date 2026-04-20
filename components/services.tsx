@@ -1,4 +1,5 @@
 import { getPublishedServices } from '@/libs/actions/service';
+import Image from 'next/image';
 import Link from 'next/link';
 
 export const Services = async () => {
@@ -45,18 +46,18 @@ export const Services = async () => {
   );
 };
 
-type Service = NonNullable<Awaited<ReturnType<typeof getPublishedServices>>>['services'][number];
+type Service = NonNullable<NonNullable<Awaited<ReturnType<typeof getPublishedServices>>>['services']>[number];
 
 function ServiceCard({ service, featured }: { service: Service; featured?: boolean }) {
   const card = featured ? (
-    <div className="group  flex h-full flex-col items-center rounded-3xl bg-white px-8 py-10 text-center  shadow-[#103D48]/40 transition-transform hover:-translate-y-1">
+    <div className="group flex h-full flex-col items-center rounded-3xl bg-white px-8 py-10 text-center shadow-[#103D48]/40 transition-transform hover:-translate-y-1">
       {service.icon && (
-        <div className="mb-6 flex h-24 w-24 items-center justify-center rounded-2xl bg-white/10 text-5xl">
+        <div className="mb-6 flex h-36 w-36 items-center justify-center rounded-2xl bg-white/10 text-5xl overflow-hidden">
           {service.icon.startsWith('http') || service.icon.startsWith('/') ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={service.icon} alt="" className=" object-contain" />
+            <Image width={300} height={300} src={service.icon} alt="" className=" transition-transform duration-300 group-hover:scale-110" />
           ) : (
-            <span>{service.icon}</span>
+            <span className="transition-transform duration-300 group-hover:scale-110 inline-block">{service.icon}</span>
           )}
         </div>
       )}
@@ -64,27 +65,26 @@ function ServiceCard({ service, featured }: { service: Service; featured?: boole
       {service.description && (
         <p className="mb-6 flex-1 text-sm leading-relaxed text-[#103D48]/60">{service.description}</p>
       )}
-      {/* dot indicators */}
       <div className="mb-6 flex gap-1.5">
         <span className="h-1.5 w-4 rounded-full bg-white" />
         <span className="h-1.5 w-1.5 rounded-full bg-white/30" />
         <span className="h-1.5 w-1.5 rounded-full bg-white/30" />
       </div>
       {service.link && (
-        <span className="w-full rounded-xl bg-[#103D48] px-6 py-3 text-xs font-bold uppercase tracking-widest text-white transition-colors ">
+        <span className="w-full rounded-xl bg-[#103D48] px-6 py-3 text-xs font-bold uppercase tracking-widest text-white transition-colors">
           Learn More
         </span>
       )}
     </div>
   ) : (
-    <div className="group flex h-full flex-col items-center rounded-3xl bg-white px-8 py-10 text-center  transition-all hover:-translate-y-1  hover:shadow-[#103D48]/10">
+    <div className="group flex h-full flex-col items-center rounded-3xl bg-white px-8 py-10 text-center transition-all hover:-translate-y-1 hover:shadow-md">
       {service.icon && (
-        <div className="mb-6 flex h-24 w-24 items-center justify-center rounded-2xl bg-[#E5F3FB] text-5xl">
+        <div className="mb-6 flex h-24 w-24 items-center justify-center rounded-2xl bg-[#E5F3FB] text-5xl overflow-hidden">
           {service.icon.startsWith('http') || service.icon.startsWith('/') ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={service.icon} alt="" className="h-32 w-32 object-contain" />
+            <img src={service.icon} alt="" className="h-32 w-32 object-contain transition-transform duration-300 group-hover:scale-110" />
           ) : (
-            <span>{service.icon}</span>
+            <span className="transition-transform duration-300 group-hover:scale-110 inline-block">{service.icon}</span>
           )}
         </div>
       )}

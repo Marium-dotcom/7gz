@@ -139,7 +139,7 @@ function TextBlock({
       )}
 
       <h1
-        className={`text-4xl font-extrabold leading-[1.1] tracking-tight lg:text-6xl xl:text-7xl ${
+        className={`text-4xl font-extrabold leading-[1.1] tracking-tight lg:text-4xl xl:text-4xl ${
           onDark ? 'text-white' : 'text-gray-950'
         }`}
       >
@@ -161,7 +161,7 @@ function TextBlock({
           {hero.ctaText && hero.ctaLink && (
             <Link
               href={hero.ctaLink}
-              className="inline-block bg-[#162a48] px-8 py-3.5 text-sm font-bold uppercase tracking-widest text-white transition-colors hover:bg-[#1e3a6e]"
+              className="inline-block bg-[#103D48] px-8 py-3.5 text-sm font-bold uppercase tracking-widest text-white transition-colors hover:bg-[103D48]/50"
             >
               {hero.ctaText}
             </Link>
@@ -172,7 +172,7 @@ function TextBlock({
               className={`inline-block border px-8 py-3.5 text-sm font-bold uppercase tracking-widest transition-colors ${
                 onDark
                   ? 'border-white/40 text-white hover:border-white hover:bg-white/10'
-                  : 'border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white'
+                  : 'border-gray-900 text-gray-900  '
               }`}
             >
               {hero.secondaryCtaText}
