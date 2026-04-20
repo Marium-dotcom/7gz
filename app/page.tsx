@@ -3,12 +3,12 @@ import { About } from "@/components/about";
 import { Services } from "@/components/services";
 import { VerifiedDoctors } from "@/components/verified-doctors";
 import { BlogCards } from "@/components/blog-cards";
-import SignIn from "@/components/sign-in";
+import { Navbar } from "@/components/navbar";
 
 export default function Home() {
   return (
     <div className="bg-[#E5F3FB]">
-      <SignIn />
+      <Navbar />
       <Hero />
       <About />
       <Services />
