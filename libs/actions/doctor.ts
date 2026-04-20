@@ -140,6 +140,23 @@ export async function getPublishedDoctors(filters?: {
   }
 }
 
+// ── Verified doctors (homepage) ───────────────────────────────────────
+
+export async function getVerifiedDoctors(limit = 6): Promise<Partial<IDoctor & { _id: string }>[]> {
+  await connectToDB();
+  try {
+    const docs = await Doctor.find({ isPublished: true, isActive: true, isVerified: true })
+      .sort({ rating: -1 })
+      .limit(limit)
+      .select('displayName avatar specialty city country consultationFee currency rating reviewCount yearsOfExperience offersOnlineConsultation isVerified licenseNumber bio')
+      .lean();
+    return JSON.parse(JSON.stringify(docs));
+  } catch (err) {
+    console.error('[getVerifiedDoctors]', err);
+    return [];
+  }
+}
+
 // ── Upsert profile ─────────────────────────────────────────────────────
 
 export async function upsertDoctor(

@@ -1,6 +1,7 @@
 import { Hero } from "@/components/hero";
 import { About } from "@/components/about";
 import { Services } from "@/components/services";
+import { VerifiedDoctors } from "@/components/verified-doctors";
 import { BlogCards } from "@/components/blog-cards";
 import SignIn from "@/components/sign-in";
 
@@ -11,6 +12,7 @@ export default function Home() {
       <Hero />
       <About />
       <Services />
+      <VerifiedDoctors />
       <BlogCards />
     </div>
   );
