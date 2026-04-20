@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { getBlogs } from '@/libs/actions/blog';
+import type { IBlog } from '@/libs/models/blog';
 
 export async function BlogCards() {
   const { posts } = await getBlogs({ limit: 6 });
@@ -21,7 +22,7 @@ export async function BlogCards() {
       </div>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {posts.map((post) => (
+        {posts.map((post: IBlog) => (
           <Link
             key={post.slug}
             href={`/blog/${post.slug}`}
