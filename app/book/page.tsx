@@ -4,7 +4,9 @@ import Image from 'next/image';
 
 export default async function BookPage() {
   const doctors = await getPublishedDoctors();
-
+console.log('====================================');
+console.log(doctors);
+console.log('====================================');
   return (
     <div className="min-h-screen bg-[#E5F3FB]">
       <div className="mx-auto w-full max-w-7xl px-10 py-20">

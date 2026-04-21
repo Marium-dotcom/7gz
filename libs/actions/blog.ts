@@ -48,7 +48,7 @@ export async function getBlogs(filters: BlogFilters = {}) {
   ]);
 
   return {
-    posts: JSON.parse(JSON.stringify(posts)),
+    posts: JSON.parse(JSON.stringify(posts)) as IBlog[],
     total,
     page,
     totalPages: Math.ceil(total / limit),

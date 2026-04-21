@@ -1,5 +1,5 @@
 import { Schema, model, models } from 'mongoose';
-import { USER_ROLES } from '@/libs/constants/user';
+import { USER_ROLES, type UserRole } from '@/libs/constants/user';
 export { USER_ROLES, type UserRole } from '@/libs/constants/user';
 
 export interface IUser {
