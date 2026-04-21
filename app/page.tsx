@@ -4,6 +4,7 @@ import { Services } from "@/components/services";
 import { VerifiedDoctors } from "@/components/verified-doctors";
 import { BlogCards } from "@/components/blog-cards";
 import { Navbar } from "@/components/navbar";
+import { ContactSection } from "@/components/contact-section";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <Services />
       <VerifiedDoctors />
       <BlogCards />
+      <ContactSection />
     </div>
   );
 }

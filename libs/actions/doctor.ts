@@ -210,10 +210,10 @@ export async function removeEducation(doctorId: string, index: number): Promise<
 
   await connectToDB();
   try {
-    const doc = await Doctor.findById(doctorId);
+    const doc = await Doctor.findById(doctorId).lean();
     if (!doc) return { success: false, message: 'Doctor not found.' };
-    doc.education.splice(index, 1);
-    await doc.save();
+    const updated = (doc.education ?? []).filter((_: unknown, i: number) => i !== index);
+    await Doctor.findByIdAndUpdate(doctorId, { $set: { education: updated } });
     revalidatePath('/admin/doctors');
     return { success: true, message: 'Education removed.' };
   } catch (err) {
@@ -245,10 +245,10 @@ export async function removeExperience(doctorId: string, index: number): Promise
 
   await connectToDB();
   try {
-    const doc = await Doctor.findById(doctorId);
+    const doc = await Doctor.findById(doctorId).lean();
     if (!doc) return { success: false, message: 'Doctor not found.' };
-    doc.experience.splice(index, 1);
-    await doc.save();
+    const updated = (doc.experience ?? []).filter((_: unknown, i: number) => i !== index);
+    await Doctor.findByIdAndUpdate(doctorId, { $set: { experience: updated } });
     revalidatePath('/admin/doctors');
     return { success: true, message: 'Experience removed.' };
   } catch (err) {
