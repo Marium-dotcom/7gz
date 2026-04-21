@@ -5,6 +5,7 @@ import { VerifiedDoctors } from "@/components/verified-doctors";
 import { BlogCards } from "@/components/blog-cards";
 import { Navbar } from "@/components/navbar";
 import { ContactSection } from "@/components/contact-section";
+import { Footer } from "@/components/footer";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <VerifiedDoctors />
       <BlogCards />
       <ContactSection />
+      <Footer />
     </div>
   );
 }
