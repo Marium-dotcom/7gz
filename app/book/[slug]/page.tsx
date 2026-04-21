@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import BookingWidget from './BookingWidget';
+import MessageDoctorButton from '@/components/message-doctor-button';
 
 const DAYS = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'] as const;
 
@@ -13,6 +14,7 @@ export default async function DoctorProfilePage({ params }: { params: Promise<{ 
   if (!doc) notFound();
 
   const isOwner = session?.user?.role === 'doctor' && doc.licenseNumber === slug;
+  const isPatient = session?.user?.role === 'user';
   const availableDays = (doc.availability ?? []).filter((a) => a.isAvailable);
 
   return (
@@ -54,6 +56,9 @@ export default async function DoctorProfilePage({ params }: { params: Promise<{ 
               >
                 ✎ Edit Profile
               </Link>
+            )}
+            {isPatient && (
+              <MessageDoctorButton doctorId={doc._id!.toString()} />
             )}
 
             {/* Stats strip */}

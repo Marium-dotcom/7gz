@@ -1,5 +1,6 @@
 import { auth, signIn, signOut } from '@/auth';
 import Link from 'next/link';
+import { getUnreadCount } from '@/libs/actions/chat';
 
 const links = [
   { label: 'Home', href: '/' },
@@ -11,6 +12,8 @@ const links = [
 export const Navbar = async () => {
   const session = await auth();
   const role = session?.user?.role;
+  const unread = session?.user ? await getUnreadCount() : 0;
+  const messagesHref = role === 'doctor' ? '/doctor/messages' : '/messages';
 
   return (
     <header className="w-full bg-white border-b border-black/8">
@@ -37,6 +40,18 @@ export const Navbar = async () => {
             <li>
               <Link href="/admin/hero" className="text-sm font-medium text-black/70 transition-colors hover:text-[#103D48]">
                 Admin
+              </Link>
+            </li>
+          )}
+          {session?.user && role !== 'admin' && (
+            <li>
+              <Link href={messagesHref} className="relative flex items-center gap-1.5 text-sm font-medium text-black/70 transition-colors hover:text-[#103D48]">
+                Messages
+                {unread > 0 && (
+                  <span className="flex h-4 min-w-4 items-center justify-center rounded-full bg-[#103D48] px-1 text-[10px] font-bold text-white">
+                    {unread > 9 ? '9+' : unread}
+                  </span>
+                )}
               </Link>
             </li>
           )}
