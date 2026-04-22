@@ -51,6 +51,12 @@ AUTH_SECRET=your_random_secret_here
 # Google OAuth (from Google Cloud Console)
 AUTH_GOOGLE_ID=your_google_client_id
 AUTH_GOOGLE_SECRET=your_google_client_secret
+
+# Pusher — real-time chat (create a free app at https://pusher.com → Channels)
+PUSHER_APP_ID=
+PUSHER_SECRET=
+NEXT_PUBLIC_PUSHER_KEY=
+NEXT_PUBLIC_PUSHER_CLUSTER=
 ```
 
 > Generate `AUTH_SECRET` with: `openssl rand -base64 32`
@@ -71,6 +77,10 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 | `AUTH_SECRET` | Random secret used to sign NextAuth session tokens |
 | `AUTH_GOOGLE_ID` | Google OAuth Client ID from Google Cloud Console |
 | `AUTH_GOOGLE_SECRET` | Google OAuth Client Secret from Google Cloud Console |
+| `PUSHER_APP_ID` | Pusher app ID (server-side only) |
+| `PUSHER_SECRET` | Pusher secret key (server-side only) |
+| `NEXT_PUBLIC_PUSHER_KEY` | Pusher public key (exposed to the browser) |
+| `NEXT_PUBLIC_PUSHER_CLUSTER` | Pusher cluster region e.g. `eu`, `us2`, `ap2` |
 
 ## Project Structure
 
