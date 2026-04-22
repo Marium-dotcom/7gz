@@ -35,13 +35,14 @@ export default function ChatWindow({ conversationId, initialMessages, myRole, ot
   useEffect(() => {
     const channel = pusherClient.subscribe(channelName(conversationId));
     channel.bind('new-message', (msg: Message) => {
+      if (msg.senderRole === myRole) return;
       setMessages((prev) => [...prev, msg]);
       markRead(conversationId);
     });
     return () => {
       pusherClient.unsubscribe(channelName(conversationId));
     };
-  }, [conversationId]);
+  }, [conversationId, myRole]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });

@@ -80,27 +80,27 @@ export const Hero = async () => {
 
         {/* Hero content */}
         {hasHeroImage ? (
-          <div className="flex items-center gap-12">
-            <div className="flex-1 space-y-8">
+          <div className="flex flex-col items-center gap-8 lg:flex-row lg:gap-12">
+            <div className="flex-1 space-y-8 text-center lg:text-left">
               <TextBlock hero={hero} onDark={onDark} />
             </div>
-            <div className="shrink-0">
+            <div className="w-full max-w-sm shrink-0 lg:max-w-none lg:w-auto">
               <Image
                 src={hero.image!.url!}
                 alt={hero.image?.alt || ''}
                 width={700}
                 height={1400}
-                className="object-contain"
+                className="mx-auto object-contain"
                 priority
               />
             </div>
           </div>
         ) : (
-          <div className="mx-auto max-w-4xl  text-center">
+          <div className="mx-auto max-w-4xl text-center">
             <TextBlock hero={hero} onDark={onDark} centered />
           </div>
         )}
-<div className="absolute left-1/2 bottom-[-20px] w-full max-w-7xl -translate-x-1/2 -translate-y-1/2 px-10">
+<div className="absolute left-1/2 -bottom-5 hidden w-full max-w-7xl -translate-x-1/2 -translate-y-1/2 px-10 lg:block">
   <DoctorSearchBar />
 </div>
         {/* Search bar — same width as content */}
