@@ -4,7 +4,7 @@ import { getUnreadCount } from '@/libs/actions/chat';
 
 const links = [
   { label: 'Home', href: '/' },
-  { label: 'Services', href: '/#services' },
+  { label: 'Services', href: '/services' },
   { label: 'Doctors', href: '/book' },
   { label: 'Blog', href: '/blog' },
 ];
