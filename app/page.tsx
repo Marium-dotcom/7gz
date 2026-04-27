@@ -10,7 +10,6 @@ import { Footer } from "@/components/footer";
 export default function Home() {
   return (
     <div className="bg-[#E5F3FB]">
-      <Navbar />
       <Hero />
       <About />
       <Services />

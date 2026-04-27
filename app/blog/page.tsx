@@ -18,7 +18,6 @@ export default async function BlogPage({ searchParams }: Props) {
 
   return (
     <div className="min-h-screen bg-[#E5F3FB]">
-      <Navbar />
 
       <div className="mx-auto max-w-7xl px-10 py-20">
 
